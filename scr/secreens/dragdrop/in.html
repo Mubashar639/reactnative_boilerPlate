@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src=" http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        #div1 {
+            width: 350px;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+
+        .color {
+            background-color: white;
+            height: 50px;
+            width: 50px;
+        }
+
+        .colordiv {
+            width: 100px;
+            background-color: rgb(250, 241, 241);
+            padding: 20px;
+            display: inline-block;
+            position: absolute;
+        }
+
+        .warddrobediv {
+            width: 400px;
+            height: auto;
+            position: relative;
+            float: right;
+            margin-right: 30%;
+            display: inline-block;
+        }
+
+        .warddrobe {
+            width: 500px;
+            height: auto;
+        }
+
+        #back {
+           
+            position: absolute;
+            clip-path: polygon(0% 3.5%, 100% 0%, 100% 100%, 0% 95%);
+            height: 456px;
+            margin-left: 32%;
+            margin-top: 11px;
+            width: 9%;
+
+        }
+
+        #door1 {
+           
+            position: absolute;
+            clip-path: polygon(0% 0%, 100% 1%, 100% 98.5%, 0% 100%);
+            margin-left: 41%;
+            width: 26.5%;
+            height: 452px;
+            position: absolute;
+            margin-top: 13px;
+        }
+
+        #door2 {
+           
+            position: absolute;
+            clip-path: polygon(0% 1%, 100% 2%, 100% 97%, 0% 98.5%);
+            margin-top: 16px;
+            margin-left: 67.5%;
+             width: 25.5%;
+            height: 452px;
+            position: absolute;
+            margin-left: 67.5%;
+            margin-top: 13px; 
+
+        }
+
+        .tabdiv {
+            width: 140px;
+            background-color: rgb(250, 241, 241);
+            display: inline-block;
+            position: relative;
+        }
+
+        .tabdiv button:active {
+            color: blue;
+        }
+
+        .icondiv {
+            width: 100px;
+            background-color: rgb(250, 241, 241);
+            padding: 20px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .icon {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+            var el = document.getElementById(ev.target.id);
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+                var element = document.getElementById(data);
+            if (element.tagName==="DIV") {
+                const style = getComputedStyle(element)
+               
+
+                ev.target.style.backgroundColor = style.backgroundColor;
+                ev.target.style.opacity = 0.5;
+            }
+            else {
+
+                var child=document.getElementById(ev.target.id).childNodes;
+                if(child.length<1){
+                var imgelement=document.createElement("IMG");
+                $(imgelement).draggable()
+                imgelement.setAttribute('src',element.src)
+                // imgelement.setAttribute('draggable','true')
+                // imgelement.classList.add("icon");
+                imgelement.style.width="70px";
+                imgelement.style.height="70px";
+                // console.log(imgelement)
+                    ev.target.appendChild(imgelement);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="tabdiv">
+       <div>
+
+           <button id="colors"> colors</button>
+           <button id="icons"> icons</button>
+    <button id="shotbut">screen shot</button>
+
+        </div>
+        
+        <div class="colordiv" id="colordiv">
+
+            Select colors
+
+            <div class="color" draggable="true" ondragstart="drag(event)" id="div2">
+            </div>
+            <div class="color" style="background-color: aqua;" draggable="true" ondragstart="drag(event)" id="div3">
+            </div>
+            <div class="color" draggable="true" style="background-color: blue" ondragstart="drag(event)" id="div4">
+            </div>
+            <div class="color" draggable="true" style="background-color:red" ondragstart="drag(event)" id="div5">
+            </div>
+            <div class="color" draggable="true" style="background-color: brown" ondragstart="drag(event)" id="div6">
+            </div>
+            <div class="color" draggable="true" style="background-color: green" ondragstart="drag(event)" id="div7">
+            </div>
+            <div class="color" draggable="true" style="background-color: greenyellow" ondragstart="drag(event)"
+                id="div8">
+            </div>
+        </div>
+        <div class="icondiv" id="icondiv">
+            Select icon
+            <img src="hand1.png" class="icon" draggable="true" id="imag1" ondragstart="drag(event)" />
+            <img src="handle2.png" class="icon" draggable="true" id="imag2" ondragstart="drag(event)" />
+            <img src="handle3.png" class="icon" draggable="true" id="imag3" ondragstart="drag(event)" />
+            <img src="handle4.png" class="icon" draggable="true" id="imag4" ondragstart="drag(event)" />
+            <img src="handle5.png" class="icon" draggable="true" id="imag5" ondragstart="drag(event)" />
+
+        </div>
+
+    </div>
+
+    <div class="warddrobediv" >
+        <div id="screen">
+
+            <div id="back" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="door1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="door2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <img src="warddrobe.jpg" alt="not found" class="warddrobe">
+        </div>
+    </div>
+    <br>
+    <div id="out"></div>
+    <script>
+        $(document).ready(function () {
+            $("#icondiv").addClass("hide");
+            $("#colors").click(1, function () {
+                $("#icondiv").addClass("hide");
+                $("#colordiv").removeClass("hide")
+
+            });
+            $("#icons").click(1, function () {
+                $("#icondiv").removeClass("hide");
+                $("#colordiv").addClass("hide")
+            });
+            $("#shotbut").click(function(){
+                var element=document.getElementById("screen")
+        html2canvas(element).then(function(canvas) {
+    // Export the canvas to its data URI representation
+    // var base64image = canvas.toDataURL("image/png");
+
+    // Open the image in a new window
+    // window.open(base64image , "_blank");
+    document.getElementById("out").appendChild(canvas);
+    // window.saveAs(canvas, "yourwebsite_screenshot.png");
+    // document.body.appendChild(canvas)
+});
+            })
+        })
+    </script>
+    
+</body>
+
+</html>
